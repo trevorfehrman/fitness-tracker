@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { TrainingComponent } from './training/training.component';
@@ -15,17 +16,19 @@ const routes: Routes = [
     component: SignupComponent,
   },
   {
-    path: 'training',
-    component: TrainingComponent,
-  },
-  {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'training',
+    component: TrainingComponent,
+    canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [AuthGuard],
 })
 export class AppRoutingModule {}
